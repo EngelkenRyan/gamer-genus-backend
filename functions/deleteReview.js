@@ -1,11 +1,13 @@
 const { ReviewModel } = require("../models");
 const validateJWT = require("../middleware/validate-jwt");
 
+// Lambda function to delete a review
 exports.handler = async function(event, context) {
   const { headers } = event;
-  const reviewId = event.pathParameters.id;  // Get review ID from path parameters
+  const reviewId = event.pathParameters.id; 
 
-  const user = await validateJWT(headers.Authorization); // Assuming validateJWT decodes the token and returns user
+  // Validate JWT Token
+  const user = await validateJWT(headers.Authorization); 
   if (!user) {
     return {
       statusCode: 403,
@@ -13,6 +15,7 @@ exports.handler = async function(event, context) {
     };
   }
 
+  // Build query to delete review owned by the user
   const query = {
     where: {
       id: reviewId,

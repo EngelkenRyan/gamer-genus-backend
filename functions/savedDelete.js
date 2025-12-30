@@ -1,11 +1,13 @@
 const { SavedgameModel } = require("../models");
 const validateJWT = require("../middleware/validate-jwt");
 
+// Lambda function to delete a saved game entry
 exports.handler = async function(event, context) {
   const { headers } = event;
-  const user = await validateJWT(headers.Authorization); // Assuming validateJWT decodes the token and returns user
-  const descriptionId = event.pathParameters.id;  // Get ID from path parameters
+  const user = await validateJWT(headers.Authorization); 
+  const descriptionId = event.pathParameters.id;  
 
+  // Validate JWT Token
   if (!user) {
     return {
       statusCode: 403,
@@ -14,7 +16,7 @@ exports.handler = async function(event, context) {
   }
 
   const query = { where: { id: descriptionId, owner: user.id } };
-
+  // Build query to delete saved game owned by the user
   try {
     const deletedCount = await SavedgameModel.destroy(query);
     if (deletedCount === 0) {

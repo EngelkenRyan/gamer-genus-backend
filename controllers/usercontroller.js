@@ -4,20 +4,20 @@ const { UserModel } = require("../models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
+// User Registration
 router.post("/register", async (req, res) => {
     console.log("Incoming request body:", req.body);
 
     let { email, username, password, role } = req.body;
 
-    // Validation for missing fields
     if (!email || !username || !password || !role) {
         return res.status(400).json({
             message: "All fields are required",
         });
     }
 
+    // Check if email is already in use
     try {
-        // Check if the email is already registered
         const existingUser = await UserModel.findOne({
             where: { email: email },
         });
@@ -27,8 +27,7 @@ router.post("/register", async (req, res) => {
                 message: "Email already in use",
             });
         }
-
-        // If email is not taken, proceed with creating the user
+        // Create new user
         const User = await UserModel.create({
             email,
             username,
@@ -57,6 +56,7 @@ router.post("/register", async (req, res) => {
     }
 });
 
+// User Login
 router.post("/login", async (req, res) => {
     let { email, password } = req.body;
 
@@ -82,12 +82,12 @@ router.post("/login", async (req, res) => {
                 });
             } else {
                 res.status(401).json({
-                    message: "Username or password is incorrect or account doesn't exist", // Updated message
+                    message: "Username or password is incorrect or account doesn't exist", 
                 });
             }
         } else {
             res.status(401).json({
-                message: "Username or password is incorrect or account doesn't exist", // Same message for consistency
+                message: "Username or password is incorrect or account doesn't exist", 
             });
         }
     } catch (error) {

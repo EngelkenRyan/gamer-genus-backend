@@ -1,9 +1,10 @@
 const { SavedgameModel } = require("../models");
 const validateJWT = require("../middleware/validate-jwt");
 
+// Lambda function to get saved games based on user role
 exports.handler = async function(event, context) {
   const { headers } = event;
-  const user = await validateJWT(headers.Authorization); // Assuming validateJWT decodes the token and returns user
+  const user = await validateJWT(headers.Authorization); 
 
   if (!user) {
     return {
@@ -11,7 +12,7 @@ exports.handler = async function(event, context) {
       body: JSON.stringify({ error: "Unauthorized" }),
     };
   }
-
+  // Fetch saved games based on user role
   try {
     let savedGames = [];
     if (user.role === "user") {

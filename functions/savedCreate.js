@@ -1,10 +1,11 @@
 const { SavedgameModel } = require("../models");
 const validateJWT = require("../middleware/validate-jwt");
 
+// Lambda function to create a new saved game entry
 exports.handler = async function(event, context) {
   const { body, headers } = event;
-  const user = await validateJWT(headers.Authorization); // Assuming validateJWT decodes the token and returns user
-  
+  const user = await validateJWT(headers.Authorization); 
+  // Validate JWT Token
   if (!user || (user.role !== "admin" && user.role !== "user")) {
     return {
       statusCode: 403,
@@ -12,9 +13,11 @@ exports.handler = async function(event, context) {
     };
   }
 
+  // Parse request body
   const { gametitle, genre, description, platform } = JSON.parse(body);
   const { id } = user;
 
+  // Build saved game entry
   const savedEntry = {
     gametitle,
     genre,
@@ -22,7 +25,7 @@ exports.handler = async function(event, context) {
     platform,
     owner: id,
   };
-
+  // Create new saved game entry
   try {
     const newSaved = await SavedgameModel.create(savedEntry);
     return {

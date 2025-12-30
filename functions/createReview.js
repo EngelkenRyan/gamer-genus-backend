@@ -1,11 +1,12 @@
 const { ReviewModel } = require("../models");
 const validateJWT = require("../middleware/validate-jwt");
 
+// Lambda function to create a new review
 exports.handler = async function(event, context) {
   const { body, headers } = event;
 
-  // Decode the JWT from headers (simulating validateJWT)
-  const user = await validateJWT(headers.Authorization); // Assuming validateJWT decodes the token and returns user
+  // Validate JWT Token
+  const user = await validateJWT(headers.Authorization); 
 
   if (!user || (user.role !== "admin" && user.role !== "user")) {
     return {
@@ -14,6 +15,7 @@ exports.handler = async function(event, context) {
     };
   }
 
+  // Parse request body
   const { gametitle, gameimage, date, feedback, rating } = JSON.parse(body);
   const reviewEntry = {
     gametitle,
@@ -24,6 +26,7 @@ exports.handler = async function(event, context) {
     owner: user.id,
   };
 
+  // Create new review entry
   try {
     const newReview = await ReviewModel.create(reviewEntry);
     return {

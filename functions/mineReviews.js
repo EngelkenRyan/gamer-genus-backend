@@ -1,9 +1,10 @@
 const { ReviewModel } = require("../models");
 const validateJWT = require("../middleware/validate-jwt");
 
+// Lambda function to get reviews based on user role
 exports.handler = async function(event, context) {
   const { headers } = event;
-  const user = await validateJWT(headers.Authorization); // Assuming validateJWT decodes the token and returns user
+  const user = await validateJWT(headers.Authorization); 
   if (!user) {
     return {
       statusCode: 403,

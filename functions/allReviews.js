@@ -1,5 +1,6 @@
 const { ReviewModel } = require("../models");
 
+// Lambda function to get all reviews
 exports.handler = async function(event, context) {
   try {
     const entries = await ReviewModel.findAll();

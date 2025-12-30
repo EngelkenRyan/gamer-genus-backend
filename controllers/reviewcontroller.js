@@ -4,10 +4,6 @@ let validateJWT = require("../middleware/validate-jwt");
 
 const { ReviewModel } = require("../models")
 
-// router.get('/practice', validateJWT, (req,res) => {
-//     res.send('Hey!! This is a practice route!')
-// })
-
 // Review Create
 router.post("/create", validateJWT, async (req,res) => {
     if (req.user.role === "admin" || req.user.role === "user"){
@@ -31,7 +27,6 @@ router.post("/create", validateJWT, async (req,res) => {
 })
 
 // Review Update
-
 router.put("/update/:feedbackId", validateJWT, async (req, res) => {
     if (req.user.role === "user"){
     const { gametitle, date, feedback, rating } = req.body;
@@ -85,7 +80,6 @@ router.put("/update/:feedbackId", validateJWT, async (req, res) => {
 })
 
 // Review Delete
-
 router.delete("/delete/:id", validateJWT, async (req, res) =>{
     if (req.user.role === "user"){
     const userId = req.user.id;
@@ -120,7 +114,6 @@ router.delete("/delete/:id", validateJWT, async (req, res) =>{
 });
 
 // Review Mine
-
 router.get("/mine", validateJWT, async (req, res) => {
     if (req.user.role === 'user'){
         const { id } = req.user;
@@ -145,7 +138,6 @@ router.get("/mine", validateJWT, async (req, res) => {
 })
 
 // Review All
-
 router.get("/", async (req, res) => {
     try {
         const entries = await ReviewModel.findAll();

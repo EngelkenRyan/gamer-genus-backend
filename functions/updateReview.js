@@ -1,11 +1,13 @@
 const { ReviewModel } = require("../models");
 const validateJWT = require("../middleware/validate-jwt");
 
+// Lambda function to update a review entry
 exports.handler = async function(event, context) {
   const { body, headers } = event;
-  const reviewId = event.pathParameters.feedbackId;  // Get review ID from path parameters
+  const reviewId = event.pathParameters.feedbackId;  
 
-  const user = await validateJWT(headers.Authorization); // Assuming validateJWT decodes the token and returns user
+  //  Validate JWT Token
+  const user = await validateJWT(headers.Authorization); 
   if (!user) {
     return {
       statusCode: 403,
@@ -13,6 +15,7 @@ exports.handler = async function(event, context) {
     };
   }
 
+  // Parse request body
   const { gametitle, date, feedback, rating } = JSON.parse(body);
   const updatedReview = { gametitle, date, feedback, rating };
 
@@ -22,7 +25,7 @@ exports.handler = async function(event, context) {
       owner: user.id,
     }
   };
-
+  //  Update review entry
   try {
     const [updatedCount] = await ReviewModel.update(updatedReview, query);
     if (updatedCount === 0) {

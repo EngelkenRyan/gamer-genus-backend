@@ -1,10 +1,12 @@
 const { SavedgameModel } = require("../models");
 const validateJWT = require("../middleware/validate-jwt");
 
+
+// Lambda function to update a saved game entry
 exports.handler = async function(event, context) {
   const { body, headers } = event;
-  const user = await validateJWT(headers.Authorization); // Assuming validateJWT decodes the token and returns user
-  const descriptionId = event.pathParameters.descriptionId;  // Get descriptionId from path parameters
+  const user = await validateJWT(headers.Authorization); 
+  const descriptionId = event.pathParameters.descriptionId;  
 
   if (!user) {
     return {
@@ -12,11 +14,12 @@ exports.handler = async function(event, context) {
       body: JSON.stringify({ error: "Unauthorized" }),
     };
   }
-
+  // Parse request body
   const { gametitle, genre, description, platform } = JSON.parse(body);
   const updatedSaved = { gametitle, genre, description, platform };
   const query = { where: { id: descriptionId, owner: user.id } };
 
+  // Update saved game entry
   try {
     const [updatedCount] = await SavedgameModel.update(updatedSaved, query);
     if (updatedCount === 0) {
