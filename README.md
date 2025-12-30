@@ -1,17 +1,37 @@
-## Description
+# 🎮 Gamer Genus – Backend API
 
-The Gamer Genus App is a place for all gamers to get honest and real reviews from other games. This app fetches from RAWG Video Games Database API to help you find the game you are searching to review. This app also alows user to create a saved game list that way you have an easy way to remember games you may want to play in the future.
+Live API: https://gamer-genus-backend-2026.onrender.com
 
-## Languages & Libraries
+This repository contains the **Node.js / Express backend** for Gamer Genus. It handles authentication, authorization, database persistence, and API endpoints.
 
-* Node.js
-* Express
-* PostgreSQL
-* Sequelize
+---
 
-## Features
+## ✨ Features
 
-* JWT Tokenization
-* Role-based access control
-* Bcrypt password hashing
-* Database Associations
+- JWT authentication & authorization
+- Role-based access (User / Admin)
+- RESTful API design
+- PostgreSQL database with Sequelize ORM
+- Secure password hashing (bcrypt)
+- CORS-enabled for frontend integration
+
+---
+
+## 🧠 Tech Stack
+
+- Node.js
+- Express
+- PostgreSQL (Supabase)
+- Sequelize ORM
+- JWT
+- bcrypt
+- Render (deployment)
+
+---
+
+## 🚀 Getting Started (Local Setup)
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/YOUR_USERNAME/gamer-genus-server.git
+cd gamer-genus-server
