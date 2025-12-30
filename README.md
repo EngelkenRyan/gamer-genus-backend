@@ -1,7 +1,5 @@
 # 🎮 Gamer Genus – Backend API
 
-Live API: https://gamer-genus-backend-2026.onrender.com
-
 This repository contains the **Node.js / Express backend** for Gamer Genus. It handles authentication, authorization, database persistence, and API endpoints.
 
 ---
