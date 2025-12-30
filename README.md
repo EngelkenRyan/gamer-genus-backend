@@ -1,17 +1,20 @@
 # 🎮 Gamer Genus – Backend API
 
-This repository contains the **Node.js / Express backend** for Gamer Genus. It handles authentication, authorization, database persistence, and API endpoints.
+🌐 Live API: https://gamer-genus-backend-2026.onrender.com
+
+This repository contains the **Node.js / Express backend** for Gamer Genus.  
+It provides authentication, authorization, database persistence, and RESTful API endpoints.
 
 ---
 
 ## ✨ Features
 
 - JWT authentication & authorization
-- Role-based access (User / Admin)
-- RESTful API design
+- Role-based access control (User / Admin)
+- RESTful API architecture
 - PostgreSQL database with Sequelize ORM
-- Secure password hashing (bcrypt)
-- CORS-enabled for frontend integration
+- Secure password hashing with bcrypt
+- CORS enabled for frontend integration
 
 ---
 
@@ -27,9 +30,9 @@ This repository contains the **Node.js / Express backend** for Gamer Genus. It h
 
 ---
 
-## 🚀 Getting Started (Local Setup)
+## 🚀 Local Development
 
-### 1. Clone the repository
+### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/gamer-genus-server.git
+git clone https://github.com/ryanengelken/gamer-genus-server.git
 cd gamer-genus-server
